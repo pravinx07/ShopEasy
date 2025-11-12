@@ -38,8 +38,25 @@ export const CartProvider = (props) => {
     });
   };
 
+  const increaseQty = (id) => {
+     setItems((prev)=>
+    prev.map((item)=>
+    item.id === id ? {...item, qty:item.qty+1}:item)
+    )
+  }
+
+  const decreaseQty = (id) => {
+    setItems((prev)=>
+    prev.map((item)=>
+    item.id === id ? {...item ,qty:item.qty - 1}:item).filter((item)=>item.qty>0)
+    )
+  }
+
+  const removeItem = (id) => {
+    setItems((prev) => prev.filter((item)=>item.id !== id))
+  }
   return (
-    <CartContext.Provider value={{ items, addToCart }}>
+    <CartContext.Provider value={{ items, addToCart, increaseQty, decreaseQty, removeItem }}>
       {props.children}
     </CartContext.Provider>
   );
