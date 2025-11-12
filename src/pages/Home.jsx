@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
-
+import Loading from "../components/Loading";
 const Home = () => {
   const [product, setProduct] = useState([]);
 
@@ -14,14 +14,16 @@ const Home = () => {
   useEffect(() => {
     fetchProduct();
   }, []);
+
+  if(!product.length) return <Loading/>
   return (
     <>
       <h2 className="text-center m-3 text-2xl font-medium">Explore Products</h2>
         <div className=" md:flex flex-wrap  justify-center">
           {product.map((item) => (
-      <Link to={`/product/${item.id}`}>
+      <Link to={`/product/${item.id}`} key={item.id}>
             <div
-              key={item.id}
+              
               className="card bg-base-100 w-82 shadow-sm border border-gray-500 m-2 hover:scale-102 transform duration-75  "
             >
               <figure>

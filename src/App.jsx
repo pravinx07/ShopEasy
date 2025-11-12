@@ -6,6 +6,7 @@ import ProductDetails from "./pages/ProductDetails";
 import { BrowserRouter,  Route, Routes } from "react-router-dom";
 import { Outlet } from "react-router";
 import Footer from "./pages/Footer";
+import Checkout from "./pages/Checkout";
 
 const App = () => {
   return (
@@ -16,7 +17,9 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/cart" element={<Cart/>}/>
         <Route path="/product/:id" element={<ProductDetails/>}/>
+        <Route path="/checkout" element={<Checkout/>}/>
       </Routes>
+      
       <Outlet/>
       <Footer/>
     </BrowserRouter>

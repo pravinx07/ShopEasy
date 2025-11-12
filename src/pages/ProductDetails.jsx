@@ -6,8 +6,8 @@ const ProductDetails = () => {
   const [product, setProduct] = useState(null);
   const { id } = useParams();
 
-  const cart = useCart();
-  console.log(cart);
+  const {addToCart} = useCart();
+  console.log(addToCart);
   
 
   const fetchProduct = async () => {
@@ -37,7 +37,7 @@ const ProductDetails = () => {
           <div className="card-actions justify-end">
             <div
               className="badge badge-outline btn btn-primary hover:shadow-lg hover:shadow-purple-500/50"
-              onClick={() => cart.setItems([...cart.items, {name: product?.title, price: product?.price}])}
+              onClick={() => addToCart(product)}
             >
               Add to Cart
             </div>
