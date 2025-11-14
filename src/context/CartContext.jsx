@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 
 const CartContext = createContext();
@@ -17,7 +18,7 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem("cart", JSON.stringify(items));
   }, [items]);
 
-  const addToCart = (product) => {
+  const addToCart = useCallback((product) => {
   if (!product || !product.id || typeof product.id !== "number") {
     console.error("❌ INVALID PRODUCT PASSED TO CART:", product);
     return; // BLOCK it
@@ -34,8 +35,8 @@ export const CartProvider = ({ children }) => {
 
     return [...prev, { ...product, qty: 1 }];
   });
-};
-
+}
+,[]);
 
   const increaseQty = (id) =>
     setItems((prev) =>
