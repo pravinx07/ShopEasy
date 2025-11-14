@@ -21,10 +21,11 @@ import AdminProducts from "./pages/admin/AdminProducts";
 import AddProduct from "./pages/admin/AddProduct";
 import AdminRoute from "./components/AdminRoute";
 import EditProduct from "./pages/admin/EditProduct"; // We will build this next
+import Loading from "./components/Loading";
 
 function App() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loading/>}>
       <BrowserRouter>
         <CartProvider>
           <WishlistProvider>
