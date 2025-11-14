@@ -5,9 +5,7 @@ import { Link } from "react-router-dom";
 const Cart = () => {
   const { items, increaseQty, decreaseQty, removeItem } = useCart();
 
-  console.log("CART ITEMS:", items); // 🧪 DEBUG
-
-  // ❌ fix: correct empty cart check
+ 
   if (!items || items.length === 0) {
     return (
       <div className="mt-28 min-h-[60vh] flex flex-col items-center justify-center">
@@ -25,24 +23,22 @@ const Cart = () => {
 
       <ul className="space-y-4">
         {items.map((item) => {
-          if (!item.id) return null; // 🚨 Prevent crashes
+          if (!item.id) return null; 
 
           return (
             <li key={item.id} className="bg-base-200 p-4 rounded-lg shadow flex items-center gap-4">
-              {/* Image */}
+              
               <img
                 src={item.thumbnail}
                 alt={item.title}
                 className="w-20 h-20 object-cover rounded-md"
               />
 
-              {/* Title & Price */}
               <div className="flex-1">
                 <h3 className="font-semibold text-lg">{item.title}</h3>
                 <p className="text-gray-400">${item.price}</p>
               </div>
 
-              {/* Qty */}
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => decreaseQty(item.id)}
@@ -61,7 +57,6 @@ const Cart = () => {
                 </button>
               </div>
 
-              {/* Remove */}
               <button
                 onClick={() => removeItem(item.id)}
                 className="btn btn-error btn-sm"
@@ -69,7 +64,6 @@ const Cart = () => {
                 X
               </button>
 
-              {/* Subtotal */}
               <p className="text-lg font-bold text-green-500">
                 ${(item.price * item.qty).toFixed(2)}
               </p>
@@ -78,7 +72,6 @@ const Cart = () => {
         })}
       </ul>
 
-      {/* Total */}
       <div className="text-center mt-6">
         <h3 className="text-xl font-bold">Grand Total: ${total.toFixed(2)}</h3>
         <Link to="/checkout">

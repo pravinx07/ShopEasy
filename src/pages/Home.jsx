@@ -16,13 +16,10 @@ const Home = () => {
   const { search } = useLocation();
   const navigate = useNavigate();
 
-  // URL Query Params
   const query = new URLSearchParams(search).get("search") || "";
   const categoryQuery = new URLSearchParams(search).get("category") || "";
 
-  // ------------------------------
-  // Fetch Products
-  // ------------------------------
+ 
   const fetchProducts = async () => {
     try {
       const res = await fetch(
@@ -36,9 +33,6 @@ const Home = () => {
     }
   };
 
-  // ------------------------------
-  // Fetch Categories
-  // ------------------------------
   const fetchCategories = async () => {
     try {
       const res = await fetch("https://dummyjson.com/products/categories");
@@ -55,12 +49,9 @@ const Home = () => {
     fetchCategories();
   }, []);
 
-  // Show loading if products not ready
   if (products.length === 0) return <Loading />;
 
-  // ------------------------------
-  // FILTERING
-  // ------------------------------
+
   let filtered = products.filter((p) =>
     p.title.toLowerCase().includes(query.toLowerCase())
   );
@@ -71,23 +62,17 @@ const Home = () => {
     );
   }
 
-  // ------------------------------
-  // SORTING
-  // ------------------------------
+
   if (sort === "low") filtered.sort((a, b) => a.price - b.price);
   if (sort === "high") filtered.sort((a, b) => b.price - a.price);
   if (sort === "rating") filtered.sort((a, b) => b.rating - a.rating);
 
-  // Pagination
   const visible = filtered.slice(0, limit);
 
-  // ===============================
-  // UI
-  // ===============================
+
   return (
     <div className="max-w-7xl mx-auto px-4 mt-28">
 
-      {/* HERO BANNER */}
       <div className="w-full h-[230px] md:h-[350px] rounded-xl overflow-hidden shadow-lg">
         <img
           src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1600&auto=format"
@@ -96,10 +81,8 @@ const Home = () => {
         />
       </div>
 
-      {/* CATEGORY + SORTING */}
       <div className="flex flex-col md:flex-row justify-between items-center mt-6 gap-4">
 
-        {/* Categories */}
         <div className="flex gap-3 overflow-x-auto pb-2">
           <button className="btn btn-sm" onClick={() => navigate("/")}>
             All
@@ -118,7 +101,6 @@ const Home = () => {
           ))}
         </div>
 
-        {/* Sorting */}
         <select
           className="select select-bordered"
           value={sort}
@@ -131,7 +113,6 @@ const Home = () => {
         </select>
       </div>
 
-      {/* NO RESULTS */}
       {filtered.length === 0 && (
         <p className="text-center text-gray-400 mt-10">
           No products found for{" "}
@@ -141,7 +122,6 @@ const Home = () => {
         </p>
       )}
 
-      {/* PRODUCT GRID */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
         {visible.map((item) => (
           <div key={item.id} className="relative">
@@ -166,7 +146,6 @@ const Home = () => {
               </div>
             </Link>
 
-            {/* Wishlist Heart */}
             <button
               onClick={() => toggleWishlist(item)}
               className={`absolute right-3 top-3 text-xl ${
@@ -181,7 +160,6 @@ const Home = () => {
         ))}
       </div>
 
-      {/* LOAD MORE */}
       {limit < filtered.length && (
         <div className="text-center mt-8">
           <button
@@ -193,7 +171,6 @@ const Home = () => {
         </div>
       )}
 
-      {/* ⭐ RECENTLY VIEWED SECTION */}
       {recent.length > 0 && (
         <div className="mt-10">
           <h2 className="text-xl font-bold mb-3">Recently Viewed</h2>

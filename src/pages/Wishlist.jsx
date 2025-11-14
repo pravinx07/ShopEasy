@@ -13,8 +13,7 @@ const Wishlist = () => {
     if (!product || !product.id) return;
     addToCart(product);
     removeFromWishlist(product.id);
-    // optional: navigate to cart or show toast
-    // navigate("/cart");
+    navigate("/cart");
   };
 
   if (!wishlist || wishlist.length === 0) {
